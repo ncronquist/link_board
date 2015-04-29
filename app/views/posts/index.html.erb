@@ -7,7 +7,7 @@
         <tr>
           <th>Title</th>
           <th>Link</th>
-          <th>Actions</th>
+          <th class="text-right">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -15,9 +15,11 @@
           <tr>
             <td><%= post.title %></td>
             <td><%= post.link %></td>
-            <td>
-              <%= link_to "Edit", edit_post_path, :class => "btn btn-success" %>
-
+            <td class="text-right">
+              <%= link_to "Edit", edit_post_path(:id => post.id), :class => "btn btn-success" %>
+              <!-- link_to "some text", users_path(:params => params, :more_params => "more params") -->
+              <%= link_to "Delete", post, :method => "delete", :confirm => "Are you sure?", :class => "btn btn-danger" %>
+              <!-- link_to "Delete", @some_obj, :method => "delete", :confirm => "Are you sure?" -->
             </td>
           </tr>
         <% end %>

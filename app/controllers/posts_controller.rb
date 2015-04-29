@@ -22,13 +22,12 @@ class PostsController < ApplicationController
   def update
     post = Post.find(params[:id])
     post.update!(post_params)
-    redirect_to post
+    redirect_to posts_path
   end
 
   def destroy
-    post = Post.find(params[:id])
-    post.delete!(post_params)
-    redirect_to posts
+    Post.find(params[:id]).destroy
+    redirect_to posts_path
   end
 
   private
