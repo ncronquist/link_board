@@ -18,6 +18,15 @@ Rails.application.routes.draw do
 
     # Test logout via url (for development)
     get 'logout' => 'sessions#destroy'
+
+    # User Pages
+    get 'signup' => 'users#new'
+    post 'signup' => 'users#create'
+
+    # Post Pages
+    resources :posts
+
+
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
