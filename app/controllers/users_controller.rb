@@ -6,8 +6,16 @@ class UsersController < ApplicationController
 
   def create
     @user = User.create(user_params)
-    flash[:success] = "Account Creation Successful!"
-    redirect_to login_path
+
+    # render :json => @user
+
+    if @user['id'].nil?
+      flash[:danger] = "Error trying to create new login"
+      render :new
+    else
+      flash[:success] = "Account Creation Successful!"
+      redirect_to login_path
+    end
   end
 
   private

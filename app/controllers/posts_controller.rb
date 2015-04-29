@@ -12,7 +12,15 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.create(post_params)
-    redirect_to posts_path
+    # redirect_to posts_path
+
+    if @post['id'].nil?
+      flash[:danger] = "Error trying to create new post"
+      render :new
+    else
+      flash[:success] = "Post Creation Successful!"
+      redirect_to posts_path
+    end
   end
 
   def edit
