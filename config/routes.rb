@@ -24,7 +24,10 @@ Rails.application.routes.draw do
     post 'signup' => 'users#create'
 
     # Post Pages
-    resources :posts
+    resources :posts do
+      resources :votes
+      resources :users
+    end
 
 
   # Example of named route that can be invoked with purchase_url(id: product.id)

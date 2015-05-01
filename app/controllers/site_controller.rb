@@ -4,6 +4,11 @@ class SiteController < ApplicationController
 
   def index
     @posts = Post.all
+    @vote = Vote.new
+    respond_to do |format|
+      format.json{ render json:@posts }
+      format.html
+    end
   end
 
   def about

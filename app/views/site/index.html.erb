@@ -2,9 +2,11 @@
 
 <div class="row">
   <div class="col-xs-12 col-sm-12">
-    <table class="table table-hover">
+    <table class="table table-hover table-condensed">
       <thead>
         <tr>
+          <th>Votes</th>
+          <th></th>
           <th>Title</th>
           <th>Link</th>
           <th>Post</th>
@@ -13,6 +15,35 @@
       <tbody>
         <% @posts.each do |post| %>
           <tr>
+            <td>
+              <%= post.votes.reduce(0) { |sum, n| sum += n['value'] }%>
+            </td>
+            <td>
+              <table class="no-pad">
+                <tr>
+                  <td>
+                    <% if @current_user %>
+                      <%# link_to '', "/posts/#{post[:id]}/votes?upvote=true", :method => 'post', :class => 'btn glyphicon glyphicon-arrow-up' %>
+                      <%= bootstrap_form_for [post,@vote] do |f| %>
+                        <%= f.hidden_field :value, value: "1" %>
+                        <%= f.button '', class: 'btn btn-link glyphicon glyphicon-arrow-up' %>
+                      <% end %>
+                    <% end %>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <% if @current_user %>
+                      <%# link_to '', "/posts/#{post[:id]}/votes?upvote=false", :method => 'post', :class => 'btn glyphicon glyphicon-arrow-down' %>
+                      <%= bootstrap_form_for [post,@vote] do |f| %>
+                        <%= f.hidden_field :value, value: "-1" %>
+                        <%= f.button '', class: 'btn btn-link glyphicon glyphicon-arrow-down' %>
+                      <% end %>
+                    <% end %>
+                  </td>
+                </tr>
+              </table>
+            </td>
             <td><%= post.title %></td>
             <td><a href="<%=post.link%>"><%=post.link%></td>
             <td><%= post.post %></td>
