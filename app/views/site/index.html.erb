@@ -7,6 +7,7 @@
         <tr>
           <th>Votes</th>
           <th></th>
+          <!-- <th></th> -->
           <th>Title</th>
           <th>Link</th>
           <th>Post</th>
@@ -21,13 +22,29 @@
                 <%= post.votes.reduce(0) { |sum, n| sum += n['value'] }%>
               </span>
             </td>
+<!--             <td>
+              <%# if @current_user %>
+                <div>
+                  <%# bootstrap_form_for [post,@vote], :html => {:class => "new_vote upvote"} do |f| %>
+                    <%# f.hidden_field :value, value: "1" %>
+                    <%# f.button '', class: 'btn glyphicon glyphicon-arrow-up gray' %>
+                  <%# end %>
+                </div>
+                <div>
+                  <%# bootstrap_form_for [post,@vote], :html => {:class => "new_vote downvote"} do |f| %>
+                    <%# f.hidden_field :value, value: "-1" %>
+                    <%# f.button '', class: 'btn glyphicon glyphicon-arrow-down gray' %>
+                  <%# end %>
+                </div>
+              <%# end %>
+            </td> -->
             <td>
               <table class="no-pad">
                 <tr>
                   <td>
                     <% if @current_user %>
                       <%# link_to '', "/posts/#{post[:id]}/votes?upvote=true", :method => 'post', :class => 'btn glyphicon glyphicon-arrow-up' %>
-                      <%= bootstrap_form_for [post,@vote] do |f| %>
+                      <%= bootstrap_form_for [post,@vote], :html => {:class => "new_vote upvote"} do |f| %>
                         <%= f.hidden_field :value, value: "1" %>
                         <%= f.button '', class: 'btn glyphicon glyphicon-arrow-up gray' %>
                       <% end %>
@@ -38,7 +55,7 @@
                   <td>
                     <% if @current_user %>
                       <%# link_to '', "/posts/#{post[:id]}/votes?upvote=false", :method => 'post', :class => 'btn glyphicon glyphicon-arrow-down' %>
-                      <%= bootstrap_form_for [post,@vote] do |f| %>
+                      <%= bootstrap_form_for [post,@vote], :html => {:class => "new_vote downvote"} do |f| %>
                         <%= f.hidden_field :value, value: "-1" %>
                         <%= f.button '', class: 'btn glyphicon glyphicon-arrow-down gray' %>
                       <% end %>
