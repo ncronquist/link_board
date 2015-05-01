@@ -1,0 +1,11 @@
+<h1>Create a New Comment</h1>
+
+<div class="row">
+  <div class="col-xs-12 col-sm-4 col-sm-offset-4">
+    <%= bootstrap_form_for [@post,@comment] do |f| %>
+      <%# f.hidden_field :post_id, :value => @post[:id] %>
+      <%= f.text_area :body, label: "Comment", :placeholder => "Enter your comment" %>
+      <%= f.primary %>
+    <% end %>
+  </div>
+</div>

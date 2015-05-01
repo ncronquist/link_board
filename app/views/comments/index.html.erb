@@ -1,0 +1,72 @@
+<h1><small>Comments for: </small><%=@post.title%></h1>
+<a href="<%=@post.link%>"><%=@post.link%></a>
+
+<div class="text-right">
+  <%= link_to "Add a Comment", new_post_comment_path(post_id: @post[:id]), class: 'btn btn-success' %>
+</div>
+
+<div class="comments">
+  <% if @comments.length > 0 %>
+    <% @comments.each do |comment| %>
+      <div class="well">
+        <span id="screen_name" class="comment-info"><%=@current_user[:name]%></span>
+        <span id="created_at" class="comment-info"><%=comment[:created_at]%></span>
+        <hr>
+        <table>
+          <tr>
+            <td>
+              <%= comment.votes.reduce(0) { |sum, n| sum += n['value'] }%>
+            </td>
+            <td>
+              <table class="no-pad">
+                <tr>
+                  <td>
+                    <% if @current_user %>
+                      <%# link_to '', "/posts/#{post[:id]}/votes?upvote=true", :method => 'post', :class => 'btn glyphicon glyphicon-arrow-up' %>
+                      <!-- /posts/:post_id/comments/:comment_id/votes(.:format) -->
+                      <%= bootstrap_form_for [@post,comment,@vote] do |f| %>
+                        <%= f.hidden_field :value, value: "1" %>
+                        <%= f.button '', class: 'btn btn-link glyphicon glyphicon-arrow-up' %>
+                      <% end %>
+                    <% end %>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <% if @current_user %>
+                      <%# link_to '', "/posts/#{post[:id]}/votes?upvote=false", :method => 'post', :class => 'btn glyphicon glyphicon-arrow-down' %>
+                      <%= bootstrap_form_for [@post,comment,@vote] do |f| %>
+                        <%= f.hidden_field :value, value: "-1" %>
+                        <%= f.button '', class: 'btn btn-link glyphicon glyphicon-arrow-down' %>
+                      <% end %>
+                    <% end %>
+                  </td>
+                </tr>
+              </table>
+            </td>
+<!--           </tr>
+          <tr> -->
+            <td>
+              <%= comment.body %>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+
+<!--       <div class="comment well">
+        <span id="screen_name" class="comment-info"><%#comment.screen_name%></span>
+        <span id="created_at" class="comment-info"><%#comment.created_at%></span>
+        <hr>
+        <%# comment.comment %>
+      </div> -->
+
+
+
+    <% end %>
+  <% else %>
+    <div>
+      No comments yet.
+    </div>
+  <% end %>
+</div>

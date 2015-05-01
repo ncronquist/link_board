@@ -20,13 +20,17 @@ Rails.application.routes.draw do
     get 'logout' => 'sessions#destroy'
 
     # User Pages
-    get 'signup' => 'users#new'
-    post 'signup' => 'users#create'
+    # get 'signup' => 'users#new'
+    # post 'signup' => 'users#create'
+    resources :users
 
     # Post Pages
     resources :posts do
       resources :votes
-      resources :users
+      # resources :users
+      resources :comments do
+        resources :votes
+      end
     end
 
 

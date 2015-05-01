@@ -6,6 +6,10 @@ class PostsController < ApplicationController
     @posts = current_user.posts
   end
 
+  def show
+    @posts = Post.find(params[:id])
+  end
+
   def new
     @post = Post.new
   end

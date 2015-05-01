@@ -6,10 +6,13 @@ class VotesController < ApplicationController
 
   def create
     # render :json => params
-    if params.key?(:post_id)
-      thing = Post.find(params[:post_id])
+
+    if params.key?(:comment_id)
+      thing = Comment.find(params[:comment_id])
     elsif params.key?(:user_id)
       thing = User.find(params[:user_id])
+    elsif params.key?(:post_id)
+      thing = Post.find(params[:post_id])
     else
       return render plain: "invalid input. Stop it!"
     end
@@ -27,7 +30,14 @@ class VotesController < ApplicationController
       end
     end
 
-    redirect_to root_path
+    if params.key?(:comment_id)
+      redirect_to post_comments_path(post_id: params[:post_id])
+    elsif params.key?(:user_id)
+      # redirect somewhere else
+    elsif params.key?(:post_id)
+      redirect_to root_path
+    end
+
   end
 
   def edit

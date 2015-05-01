@@ -10,6 +10,7 @@
           <th>Title</th>
           <th>Link</th>
           <th>Post</th>
+          <th>Comments</th>
         </tr>
       </thead>
       <tbody>
@@ -47,6 +48,8 @@
             <td><%= post.title %></td>
             <td><a href="<%=post.link%>"><%=post.link%></td>
             <td><%= post.post %></td>
+            <td><%= link_to post.comments.count.to_s + ' comments', post_comments_path(post_id: post[:id]) %></td>
+            <!-- "posts/#{post[:id]}/comments" -->
           </tr>
         <% end %>
       </tbody>
