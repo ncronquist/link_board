@@ -1,5 +1,7 @@
 class CommentsController < ApplicationController
 
+  before_action :is_authenticated?, :only => [:new,:create]
+
   def index
     # render :json => params
     @post = Post.find(params[:post_id])

@@ -9,7 +9,7 @@
   <% if @comments.length > 0 %>
     <% @comments.each do |comment| %>
       <div class="well">
-        <span id="screen_name" class="comment-info"><%=@current_user[:name]%></span>
+        <span id="screen_name" class="comment-info"><%=comment.user[:name]%></span>
         <span id="created_at" class="comment-info"><%=comment[:created_at]%></span>
         <hr>
         <table>
