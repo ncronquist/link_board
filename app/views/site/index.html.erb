@@ -7,7 +7,6 @@
         <tr>
           <th>Votes</th>
           <th></th>
-          <!-- <th></th> -->
           <th>Title</th>
           <th>Link</th>
           <th>Post</th>
@@ -16,28 +15,12 @@
       </thead>
       <tbody>
         <% @posts.each do |post| %>
-          <tr>
+          <tr class="postrow">
             <td>
               <span class="vote_count">
                 <%= post.votes.reduce(0) { |sum, n| sum += n['value'] }%>
               </span>
             </td>
-<!--             <td>
-              <%# if @current_user %>
-                <div>
-                  <%# bootstrap_form_for [post,@vote], :html => {:class => "new_vote upvote"} do |f| %>
-                    <%# f.hidden_field :value, value: "1" %>
-                    <%# f.button '', class: 'btn glyphicon glyphicon-arrow-up gray' %>
-                  <%# end %>
-                </div>
-                <div>
-                  <%# bootstrap_form_for [post,@vote], :html => {:class => "new_vote downvote"} do |f| %>
-                    <%# f.hidden_field :value, value: "-1" %>
-                    <%# f.button '', class: 'btn glyphicon glyphicon-arrow-down gray' %>
-                  <%# end %>
-                </div>
-              <%# end %>
-            </td> -->
             <td>
               <table class="no-pad">
                 <tr>
@@ -46,7 +29,11 @@
                       <%# link_to '', "/posts/#{post[:id]}/votes?upvote=true", :method => 'post', :class => 'btn glyphicon glyphicon-arrow-up' %>
                       <%= bootstrap_form_for [post,@vote], :html => {:class => "new_vote upvote"} do |f| %>
                         <%= f.hidden_field :value, value: "1" %>
-                        <%= f.button '', class: 'btn glyphicon glyphicon-arrow-up gray' %>
+                        <% if post.votes.find_by_user_id(@current_user[:id]).value == 1 %>
+                          <%= f.button '', class: 'btn glyphicon glyphicon-arrow-up green' %>
+                        <% else %>
+                          <%= f.button '', class: 'btn glyphicon glyphicon-arrow-up gray' %>
+                        <% end %>
                       <% end %>
                     <% end %>
                   </td>
@@ -57,7 +44,11 @@
                       <%# link_to '', "/posts/#{post[:id]}/votes?upvote=false", :method => 'post', :class => 'btn glyphicon glyphicon-arrow-down' %>
                       <%= bootstrap_form_for [post,@vote], :html => {:class => "new_vote downvote"} do |f| %>
                         <%= f.hidden_field :value, value: "-1" %>
-                        <%= f.button '', class: 'btn glyphicon glyphicon-arrow-down gray' %>
+                        <% if post.votes.find_by_user_id(@current_user[:id]).value == -1 %>
+                          <%= f.button '', class: 'btn glyphicon glyphicon-arrow-down red' %>
+                        <% else %>
+                          <%= f.button '', class: 'btn glyphicon glyphicon-arrow-down gray' %>
+                        <% end %>
                       <% end %>
                     <% end %>
                   </td>

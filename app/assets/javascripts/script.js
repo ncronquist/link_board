@@ -27,29 +27,42 @@ $(function() {
       console.log(returned_data);
 
       if(returned_data.result) {
+        // Update the vote count
         vote_count = returned_data.votes.reduce(function(sum,n) {
           return sum + n.value;
         }, 0);
-
         console.log("Vote Count:", vote_count);
-        form.find('.btn').removeClass('gray');
-        form.find('.btn').removeClass('red');
-        form.find('.btn').addClass('green');
 
+        form.closest('.postrow').find('.vote_count').text(vote_count);
 
-        form.parent().parent().parent().parent().parent().prev()
-            .find('.vote_count').text(vote_count);
+        // Update the colors of the buttons
+        if(idx%2 == 0) {
+          // If the index of the button clicked is even, then it is an upvote
+          // and the paired form is the downvote which will be the next index
+          pairedIdx = idx + 1
+          form.find('.btn').removeClass('gray');
+          form.find('.btn').addClass('green');
 
-        pairedIdx = (idx%2 == 0)? idx+1 : idx-1
-        pairedForm = $('.new_vote').eq(pairedIdx)
-        pairedForm.find('.btn').removeClass('green')
-        pairedForm.find('.btn').removeClass('red')
-        pairedForm.find('.btn').addClass('gray')
+          // Update the color of the paired button
+          pairedForm = $('.new_vote').eq(pairedIdx)
+          pairedForm.find('.btn').removeClass('red')
+          pairedForm.find('.btn').addClass('gray')
+        } else {
+          // If the index of the button clicked is odd, then it is a downvote
+          // and the paired form is the upvote which will be the index above
+          pairedIdx = idx - 1
+          form.find('.btn').removeClass('gray');
+          form.find('.btn').addClass('red');
+
+          // Update the color of the paired button
+          pairedForm = $('.new_vote').eq(pairedIdx)
+          pairedForm.find('.btn').removeClass('green')
+          pairedForm.find('.btn').addClass('gray')
+        }
+
       } else {
         alert('You only have one vote per item');
       }
-
-
     })
   })
 })
