@@ -17,7 +17,9 @@
         <% @posts.each do |post| %>
           <tr>
             <td>
-              <%= post.votes.reduce(0) { |sum, n| sum += n['value'] }%>
+              <span class="vote_count">
+                <%= post.votes.reduce(0) { |sum, n| sum += n['value'] }%>
+              </span>
             </td>
             <td>
               <table class="no-pad">
@@ -27,7 +29,7 @@
                       <%# link_to '', "/posts/#{post[:id]}/votes?upvote=true", :method => 'post', :class => 'btn glyphicon glyphicon-arrow-up' %>
                       <%= bootstrap_form_for [post,@vote] do |f| %>
                         <%= f.hidden_field :value, value: "1" %>
-                        <%= f.button '', class: 'btn btn-link glyphicon glyphicon-arrow-up' %>
+                        <%= f.button '', class: 'btn glyphicon glyphicon-arrow-up gray' %>
                       <% end %>
                     <% end %>
                   </td>
@@ -38,7 +40,7 @@
                       <%# link_to '', "/posts/#{post[:id]}/votes?upvote=false", :method => 'post', :class => 'btn glyphicon glyphicon-arrow-down' %>
                       <%= bootstrap_form_for [post,@vote] do |f| %>
                         <%= f.hidden_field :value, value: "-1" %>
-                        <%= f.button '', class: 'btn btn-link glyphicon glyphicon-arrow-down' %>
+                        <%= f.button '', class: 'btn glyphicon glyphicon-arrow-down gray' %>
                       <% end %>
                     <% end %>
                   </td>

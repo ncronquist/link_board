@@ -28,3 +28,19 @@ table.no-pad .btn {
 #created_at {
   float: right;
 }
+
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}
+
+.gray {
+  color: #B8B8B8;
+}
+
+.new_vote .btn {
+  background: none;
+}
